@@ -1,29 +1,33 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../context/authContext.js";
+import { AuthContext } from "../../context/authContext.js";
+// import { login } from "../../api/auth.js";
 import "./login.scss"
 
-const Login = () => {
+const Login = () => { 
+  
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
   });
   const [err, setErr] = useState(null);
-
+  
   const navigate = useNavigate()
-
+  
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  //  const { login } = useContext(AuthContext);
-
+  const { login } = useContext(AuthContext);
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-    //  await login(inputs);
+      await login(inputs)
       navigate("/")
     } catch (err) {
-      setErr(err.response.data);
+      // setErr(err.response.data);
+      console.log(err);
     }
   };
 
@@ -33,9 +37,7 @@ const Login = () => {
         <div className="left">
           <h1>Friends</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+          Bienvenu sur votre réseaux social, retrouver tous vos amis et partager des moments unique en image.
           </p>
           <span>N'avez-vous pas un compte ?</span>
           <Link to="/register">
@@ -49,7 +51,7 @@ const Login = () => {
               type="text"
               placeholder="Username"
               name="username"
-              onChange={handleChange}
+              onChange={handleChange}  
             />
             <input
               type="password"

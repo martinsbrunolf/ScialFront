@@ -12,15 +12,15 @@ import RightBar from "./components/rightBar/RightBar.jsx";
 import Home from "./pages/home/Home.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import "./style.scss";
-// import { useContext } from "react";
-// import { DarkModeContext } from "./context/darkModeContext.js";
-// import { AuthContext } from "./context/authContext.js";
+import { useContext } from "react";
+import { DarkModeContext } from "./context/darkModeContext.js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthContext } from "./context/authContext.js";
 
 function App() {
-  // const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  // const { darkMode } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const queryClient = new QueryClient();
 
@@ -28,7 +28,7 @@ function App() {
     return (
       <QueryClientProvider client={queryClient}>
         <div 
-          // className={`theme-${darkMode ? "dark" : "light"}`}
+          className={`theme-${darkMode ? "dark" : "light"}`}
         >
           <Navbar />
           <div style={{ display: "flex" }}>
@@ -44,7 +44,7 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (1 === 1) {
+    if (!currentUser) {
       return <Navigate to="/login" />;
     }
 

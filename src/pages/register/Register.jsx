@@ -20,13 +20,17 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3000/api/auth/register", inputs);
+      await axios.post("http://localhost:3001/api/auth/register", inputs);
+      // console.log('Fetching...');
+      // console.log('Register');
     } catch (err) {
-      setErr(err.response.data);
+      if (err.response?.data) {
+        setErr( err.response.data);
+      }
     }
   };
 
-  console.log(err)
+  // console.log(err)
 
   return (
     <div className="register">
@@ -61,7 +65,7 @@ const Register = () => {
               placeholder="Password"
               name="password"
               onChange={handleChange}
-            />
+            /> 
             <input
               type="text"
               placeholder="Name"
